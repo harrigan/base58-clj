@@ -45,7 +45,7 @@
                        (if (and (or (pos? c) (< k l)) (< k t))
                          (let [d (bit-and (aget ^bytes bb k) 0xff)
                                n (+ c (* 256 d))]
-                           (aset bb k (byte (rem n 58)))
+                           (aset-byte bb k (byte (rem n 58)))
                            (recur (inc k) (quot n 58)))
                          k))))
         (reversed-indices->str bb l)))))
@@ -81,7 +81,7 @@
             (if (neg? j)
               bb
               (do
-                (aset bb (+ (- i j) zs) (aget ^bytes ba j))
+                (aset-byte bb (+ (- i j) zs) (aget ^bytes ba j))
                 (recur (dec j))))))))))
 
 (defn estimate-byte-array-size
@@ -102,7 +102,7 @@
                        (if (and (or (pos? c) (< k l)) (< k t))
                          (let [d (bit-and (aget ^bytes ba k) 0xff)
                                n (+ c (* 58 d))]
-                           (aset ba k (byte (rem n 256)))
+                           (aset-byte ba k (byte (rem n 256)))
                            (recur (inc k) (quot n 256)))
                          k))))
         (reversed-indices->byte-array ba l zs)))))
